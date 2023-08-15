@@ -3,8 +3,10 @@ import Layouts from '../components/Layouts/Layouts';
 import axios from 'axios';
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Prices';
+import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -150,7 +152,12 @@ const Homepage = () => {
                     {p.description.substring(0, 30)}..
                   </p>
                   <p className="card-text">₹{p.price}</p>
-                  <button className="btn btn-primary ms-1">More Details</button>
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
                   <button className="btn btn-secondary ms-1">
                     Add to Cart
                   </button>
@@ -158,16 +165,19 @@ const Homepage = () => {
               </div>
             ))}
           </div>
-        <div className='m-2 p-3'>
-          {products && products.length <total && (
-            <button className='btn btn-warning' onClick={(e)=>{
-              e.preventDefault();
-              setPage(page + 1);
-             }}>
-              {loading ? "loading..." :"Load More"}
-            </button>
-          )}
-        </div>
+          <div className="m-2 p-3">
+            {products && products.length < total && (
+              <button
+                className="btn btn-warning"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "loading..." : "Load More"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </Layouts>
