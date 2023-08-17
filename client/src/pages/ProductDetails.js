@@ -62,7 +62,7 @@ const ProductDetails = () => {
       <hr></hr>
       <div className="row container">
         <h6>Similar Products</h6>
-        {relatedProducts < 1 && (<p className="text-center">No Similar Products Found</p>)}
+        {relatedProducts < 1 && (<p className="text-center ">No Similar Products Found</p>)}
 
         <div className="d-flex flex-wrap">
           {relatedProducts?.map((p) => (

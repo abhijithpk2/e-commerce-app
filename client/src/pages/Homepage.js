@@ -138,6 +138,7 @@ const Homepage = () => {
         </div>
         <div className="col-md-9">
           <h1 className="text-center">All products</h1>
+
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }}>
@@ -165,6 +166,7 @@ const Homepage = () => {
               </div>
             ))}
           </div>
+
           <div className="m-2 p-3">
             {products && products.length < total && (
               <button
@@ -178,6 +180,7 @@ const Homepage = () => {
               </button>
             )}
           </div>
+          
         </div>
       </div>
     </Layouts>

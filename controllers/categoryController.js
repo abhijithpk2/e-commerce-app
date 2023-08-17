@@ -72,7 +72,7 @@ export const categoryController = async(req,res) => {
     }
 };
 
-// single catgory 
+// single category 
 
 export const singleCategoryController = async(req,res)=> {
     try {
