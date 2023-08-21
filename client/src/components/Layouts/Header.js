@@ -30,7 +30,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
-            <HiShoppingCart /> E-Commerce App
+            <HiShoppingCart /> Watchify
           </Link>
           <button
             className="navbar-toggler"

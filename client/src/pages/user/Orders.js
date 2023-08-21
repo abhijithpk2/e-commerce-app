@@ -38,22 +38,22 @@ const Orders = () => {
                                 <table className="table">
                                     <thead>
                                         <tr>
-                                            <td scope='col'>#</td>
-                                            <td scope='col'>Status</td>
-                                            <td scope='col'>Buyer</td>
-                                            <td scope='col'>Date</td>
-                                            <td scope='col'>payment</td>
-                                            <td scope='col'>Quantity</td>
+                                            <th scope='col'>#</th>
+                                            <th scope='col'>Status</th>
+                                            <th scope='col'>Buyer</th>
+                                            <th scope='col'>Date</th>
+                                            <th scope='col'>payment</th>
+                                            <th scope='col'>Quantity</th>
                                         </tr>
                                     </thead>    
                                     <tbody>
                                         <tr>
-                                            <th>{i+1}</th>
-                                            <th>{o?.status}</th>
-                                            <th>{o?.buyer?.name}</th>
-                                            <th>{moment(o?.createAt).fromNow()}</th>
-                                            <th>{o?.payment.success? "success":"Failed"}</th>
-                                            <th>{o?.products?.length}</th>
+                                            <td>{i+1}</td>
+                                            <td>{o?.status}</td>
+                                            <td>{o?.buyer?.name}</td>
+                                            <td>{moment(o?.createdAt).fromNow()}</td>
+                                            <td>{o?.payment.success? "success":"Failed"}</td>
+                                            <td>{o?.products?.length}</td>
                                         </tr>
                                     </tbody>
                                 </table>
