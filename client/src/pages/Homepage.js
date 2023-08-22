@@ -145,11 +145,12 @@ const Homepage = () => {
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "18rem" }}>
-                  <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
-                    className="card-img-top"
-                    alt={p.name}
-                  />
+                <img
+                  src={`/api/v1/product/product-photo/${p._id}`}
+                  className="card-img-top"
+                  alt={p.name}
+                  style={{ width: "18rem" }}
+                />
                 <div className="card-body">
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">
@@ -162,20 +163,25 @@ const Homepage = () => {
                   >
                     More Details
                   </button>
-                  <button className="btn btn-secondary ms-1"
-                  onClick={()=>{
-                    setCart([...cart,p])
-                    localStorage.setItem('cart',JSON.stringify([...cart, p]))
-                    toast.success("Item Added to cart")
-                    }} >
+                  <button
+                    className="btn btn-secondary ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
                     Add to Cart
                   </button>
                 </div>
-              </div>  
+              </div>
             ))}
           </div>
 
-          <div className="m-2 p-3">
+          <div className="m-2 p-3 text-center">
             {products && products.length < total && (
               <button
                 className="btn btn-warning"
@@ -188,7 +194,6 @@ const Homepage = () => {
               </button>
             )}
           </div>
-          
         </div>
       </div>
     </Layouts>
