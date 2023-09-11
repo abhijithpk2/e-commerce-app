@@ -68,7 +68,7 @@ const AdminOrders = () => {
                                                 <Select bordered={false} onChange={(value ) => handleChange(o._id,value)}
                                                 defaultValue={o?.status}
                                                 >
-                                                    {status.map((s,i)=>(
+                                                    {status.map((s,i)=> (
                                                         <Option key={i} value={s}>
                                                             {s}
                                                         </Option>
@@ -82,7 +82,7 @@ const AdminOrders = () => {
                                           </tr>
                                       </tbody>
                                   </table>
-                                  <div className="conatiner">
+                                  <div className="container">
                                       {o?.products?.map((p, i) => (
                                           <div className="row mb-2 p-3 card flex-row">
                                               <div className="col-md-4">
