@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Layouts from '../components/Layouts/Layouts'
+import "../styles/CategoryProductStyles.css";
 import axios from 'axios'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 const CategoryProduct = () => {
     const params = useParams();
@@ -22,41 +24,39 @@ const CategoryProduct = () => {
     }
   return (
     <Layouts>
-
-    <div className="container mt-3">
-        <h4 className='text-center'>Category - {category?.name}</h4>
-        <h6 className='text-center'>{products?.length} Result found</h6>
+      <div className="category container mt-3 ">
+        <h4 className="text-center">Category - {category?.name}</h4>
+        <h6 className="text-center">{products?.length} Result found</h6>
         <div className="row">
+          <div className="d-flex flex-wrap">
+            {products?.map((p) => (
+              <div className="card m-2" style={{ width: "18rem" }}>
+                <img
+                  src={`/api/v1/product/product-photo/${p._id}`}
+                  className="card-img-top"
+                  alt={p.name}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{p.name}</h5>
+                  <p className="card-text">
+                    {p.description.substring(0, 30)}..
+                  </p>
+                  <p className="card-text">₹{p.price}</p>
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
+                  <button className="btn btn-secondary ms-1">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                  <div className="d-flex flex-wrap">
-                      {products?.map((p) => (
-                          <div className="card m-2" style={{ width: "18rem" }}>
-                              <img
-                                  src={`/api/v1/product/product-photo/${p._id}`}
-                                  className="card-img-top"
-                                  alt={p.name}
-                              />
-                              <div className="card-body">
-                                  <h5 className="card-title">{p.name}</h5>
-                                  <p className="card-text">
-                                      {p.description.substring(0, 30)}..
-                                  </p>
-                                  <p className="card-text">₹{p.price}</p>
-                                  <button
-                                      className="btn btn-primary ms-1"
-                                      onClick={() => navigate(`/product/${p.slug}`)}
-                                  >
-                                      More Details
-                                  </button>
-                                  <button className="btn btn-secondary ms-1">
-                                      Add to Cart
-                                  </button>
-                              </div>
-                          </div>
-                      ))}
-                  </div>
-                  
-                  {/* <div className="m-2 p-3">
+          {/* <div className="m-2 p-3">
                       {products && products.length < total && (
                           <button
                               className="btn btn-warning"
@@ -69,11 +69,10 @@ const CategoryProduct = () => {
                           </button>
                       )}
                   </div> */}
-
         </div>
-    </div>
+      </div>
     </Layouts>
-  )
+  );
 }
 
 export default CategoryProduct
