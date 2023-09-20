@@ -7,10 +7,10 @@ const AdminDashboard = () => {
   const [auth] = useAuth();
   return (
     <Layouts title={"Dashboard - Admin Panel"}>
-      <div className="container-fluid p-3 m-3">
+      <div className="container-fluid p-3 m-3 dashboard">
         <div className="row">
           <div className="col-md-3">
-            <AdminMenu/>
+            <AdminMenu />
           </div>
           <div className="col-md-9">
             <div className="card w-75 p-3">
@@ -21,9 +21,8 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-
     </Layouts>
-  )
+  );
 }
 
 export default AdminDashboard

@@ -3,8 +3,14 @@ import Layouts from '../components/Layouts/Layouts';
 import axios from 'axios';
 import { Checkbox, Radio } from 'antd'
 import { Prices } from '../components/Prices';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/Cart';
+import { toast } from 'react-hot-toast';
+import '../styles/Homapage.css'
 
 const Homepage = () => {
+  const navigate = useNavigate();
+  const [cart,setCart] = useCart() 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -100,8 +106,17 @@ const Homepage = () => {
 
   return (
     <Layouts title={"All products - Best Offers"}>
-      <div className="row mt-3">
-        <div className="col-md-2 ">
+      {/* banner image */}
+      <img
+        src="/images/banner.png"
+        className="banner-img"
+        alt="bannerimage"
+        width={"100%"}
+      />
+      {/* banner image */}
+
+      <div className="container-fluid row mt-3 home-page">
+        <div className="col-md-2 filters">
           <h4 className="text-center">Filter by Categories</h4>
           <div className="d-flex flex-column mr-2">
             {categories.map((c) => (
@@ -136,38 +151,67 @@ const Homepage = () => {
         </div>
         <div className="col-md-9">
           <h1 className="text-center">All products</h1>
-          <div className="d-flex flex-wrap">
+
+          <div className="d-flex justify-content-center flex-wrap ">
             {products?.map((p) => (
-              <div className="card m-2" style={{ width: "18rem" }}>
+              <div className="card m-3" key={p._id} style={{ width: "18rem" }}>
                 <img
                   src={`/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
                   alt={p.name}
+                  style={{ width: "18rem" }}
                 />
-                <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
+                <div className="card-body ">
+                  <div className="card-name-price">
+                    <h5 className="card-title">{p.name}</h5>
+                    <h5 className="card-title card-price">
+                      {p.price.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "INR",
+                      })}
+                    </h5>
+                  </div>
                   <p className="card-text">
                     {p.description.substring(0, 30)}..
                   </p>
-                  <p className="card-text">₹{p.price}</p>
-                  <button className="btn btn-primary ms-1">More Details</button>
-                  <button className="btn btn-secondary ms-1">
+                  <p className="card-name-price"></p>
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
+                  <button
+                    className="btn btn-secondary ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
                     Add to Cart
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        <div className='m-2 p-3'>
-          {products && products.length <total && (
-            <button className='btn btn-warning' onClick={(e)=>{
-              e.preventDefault();
-              setPage(page + 1);
-             }}>
-              {loading ? "loading..." :"Load More"}
-            </button>
-          )}
-        </div>
+
+          <div className="m-2 p-3 text-center">
+            {products && products.length < total && (
+              <button
+                className="btn btn-warning loadmore"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "loading..." : "Load More"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </Layouts>

@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
   // Get all Products
   const getAllProducts = async () => {
@@ -22,7 +25,34 @@ const Products = () => {
   // Lifecycle method
   useEffect(() => {
     getAllProducts();
+    getTotal();
   }, []);
+
+  // get total count
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/product-count");
+      setTotal(data?.total);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+  }, [page]);
+  // load More
+  const loadMore = async () => {
+    try {
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   return (
     <Layouts>
       <div className="row">
@@ -46,11 +76,28 @@ const Products = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text">{p.description}</p>
+                    <p className="card-text">{p.description.substring(0, 30)}...</p>
                   </div>
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+
+        <div className="text-center">
+          <div className="m-2 p-3">
+            {products && products.length < total && (
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "loading..." : "Load More"}
+              </button>
+            )}
           </div>
         </div>
       </div>

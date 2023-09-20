@@ -53,26 +53,26 @@ export const updateCategoryController = async(req,res) => {
 };
 
 // get all category
-export const categoryController = async(req,res) => {
-    try {
-        const category = await categoryModel.find({});
-        res.status(200).send({
-            success:true,
-            message:"All category List",
-            category
-        });
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success:false,
-            message:"Error while getting all the category",
-            error
-        })
-    }
+export const categoryController = async (req, res) => {
+  try {
+    const category = await categoryModel.find({});
+    res.status(200).send({
+      success: true,
+      message: "All Categories List",
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting all categories",
+    });
+  }
 };
 
-// single catgory 
+
+// single category 
 
 export const singleCategoryController = async(req,res)=> {
     try {

@@ -24,10 +24,10 @@ const Layouts = ({ children,title,description,keywords,author }) => {
   );
 };
 Layouts.defultProps = {
-  title:"E-commerce App-shop now",
+  title: "Watchify-shop now for watches",
   description: "Mern stack project",
   keywords: "mern,mongodb,react,node",
-  author: "Abhijith"
-}
+  author: "Abhijith",
+};
 
 export default Layouts
